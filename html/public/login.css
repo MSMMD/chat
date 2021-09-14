@@ -1,5 +1,5 @@
 body{
-  background: #80ff70;
+  background: #fafafa;
 }
 
 div {
@@ -9,14 +9,15 @@ div {
 form {
   margin: auto;
   width: 300px;
-  background: rgb(255, 217, 0);
+  background: #b3b3b3;
+  box-shadow: 0px 3px 6px black;
   border-radius: 10px;
 }
 
 input {
   padding: 10px;
   margin-bottom: 8px;
-  border: 2px blue solid;
+  border: 2px #000000 solid;
 }
 
 input:focus {
@@ -38,9 +39,10 @@ button {
   padding: 8px;
   margin-top: 0px;
   margin-bottom: 12px;
-  border: 2px green solid; 
-  background: greenyellow;
-  box-shadow: 0 3px green;
+  color: white;
+  border: 2px #1d1d1d solid; 
+  background: #4d4d4d;
+  box-shadow: 0 3px #1d1d1d;
   border-radius: 10px;
 }
 
@@ -49,8 +51,8 @@ button:hover {
   padding: 8px;
   margin-top: 3px;
   margin-bottom: 9px;
-  border: 2px rgb(2, 141, 2) solid; 
-  background: rgb(148, 226, 31);
+  border: 2px #0e0e0e solid; 
+  background: #3e3e3e;
   box-shadow: 0 0 0 transparent;
   border-radius: 10px;
 }
