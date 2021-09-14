@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Super Trunfo De Ciências">
+    <meta name="author" content="MsMmD">
+    <title>Registrar</title>
+    <link rel="stylesheet" type="text/css" href="/register.css">
+  </head>
+  <body>
+    <div>
+		  <form method="POST" action="/register">
+		  	<input name="username" autocomplete="off" placeholder="Nome do Usuário" value="<%= pusername%>"><br>
+		  	<input name="password" type="password" autocomplete="off" placeholder="Senha" value="<%= psenha%>"><br>
+        <input name="cpassword" type="password" autocomplete="off" placeholder="Confirmar Senha" value="<%= pcsenha%>"><br>
+
+        <% if(error){
+            if([8,9,10,11].includes(error)){
+              if(error==8){%>
+                <p style="color:red; font-size:17px;">*you entered 2 different passwords</p>
+           <% }
+              if(error==9){%>
+                <p style="color:red; font-size:17px;">*password must be at least 6 characters</p>
+           <% }
+              if(error==10){%>
+                <p style="color:red; font-size:17px;">*no special characters allowed in the username</p>
+           <% }
+              if(error==11){%>
+                <p style="color:red; font-size:17px;">*this account already existse</p>
+           <% }
+            } else {%>
+              <p style="color:red; font-size:17px;">*fill all fields</p>
+         <% }%> 
+       <% }%>
+
+		  	<button>Register</button>
+		  </form>
+
+		  <br>
+		  <a href="/login">already have an account?</a>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      let inputs = document.getElementsByTagName('input');
+      let ivalues = ["<%= pusername%>", "<%= psenha%>", "<%= pcsenha%>"];
+      if(! ([8,9,10,11].includes(<%= error%>)) ){
+        for(let i=0; i<inputs.length; i++){
+        
+          if(<%= error%>% (Math.pow(2, i+1)) >= (Math.pow(2, i)) ){
+              if(inputs[i].value == ivalues[i]){
+              inputs[i].style.background = "rgb(255, 130, 130)";
+            } else {
+              inputs[i].style.background = "";
+            }
+          }
+
+          inputs[i].addEventListener("input", () => {
+            if(<%= error%>% (Math.pow(2, i+1)) >= (Math.pow(2, i)) ){
+              if(inputs[i].value == ivalues[i]){
+                inputs[i].style.background = "rgb(255, 130, 130)";
+              } else {
+                inputs[i].style.background = "";
+              }
+            }
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

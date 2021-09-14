@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="MsMmD">
+  <!--<link rel="stylesheet" type="text/css" href="/index.css">-->
+  <title>Chat</title>
+</head>
+<body>
+
+  <div id="room-container">
+    <% Object.keys(rooms).forEach(room => { %>
+      <div><a href="/r/<%= room %>"><%= room %></a></div>
+    <% }); %>
+  </div>
+
+  <form action="/room" method="POST">
+    <input name="room" type="text" autocomplete="off" required>
+    <button type="submit">New Room</button>
+  </form>
+
+  <script src="/socket.io/socket.io.js"></script>
+  
+  <script type="text/javascript">
+    let socket = io();
+    let roomContainer = document.getElementById('room-container');
+
+    socket.on("new room",room => {
+      let roomElement = document.createElement('div')
+      let roomLink = document.createElement('a')
+      roomLink.href = `/r/${room}`
+      roomLink.innerText = room;
+      roomContainer.appendChild(roomElement);
+      roomElement.appendChild(roomLink);
+    });
+
+    socket.on("room deleted", room => {
+      let links = document.getElementsByTagName("a");
+      console.log(Array.from(links));
+      /*links.forEach(a => {
+        if(a.innerHTML==room) a.remove();
+      });*/
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html id="html">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Super Trunfo De Ciências">
+    <meta name="author" content="MsMmD">
+    <title>Login</title>
+	  <link rel="stylesheet" type="text/css" href="/login.css">
+  </head>
+  <body>
+
+    <div>
+		  <form method="POST" action="/login">
+		  	<input name="username" autocomplete="off" placeholder="Nome do Usuário" value="<%= pusername%>"><br>
+		  	<input name="password" type="password" autocomplete="off" placeholder="Senha" value="<%= psenha%>"><br>
+
+       <% if(error){
+            if(error == 4){%>
+              <p style="color:red; font-size:17px;">*incorrect username or password</p>
+         <% } else {%>
+              <p style="color:red; font-size:17px;">*fill all fields</p>
+         <% }%> 
+       <% }%>
+
+		  	<button>Login</button>
+		  </form>
+		  <br>
+		  <a href="/register">Don't have an account?</a>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      let inputs = document.getElementsByTagName('input');
+      let ivalues = ["<%= pusername%>", "<%= psenha%>"];
+      for(let i=0; i<inputs.length; i++){
+        
+        if(<%= error%>% (Math.pow(2, i+1)) >= (Math.pow(2, i)) ){
+            if(inputs[i].value == ivalues[i]){
+            inputs[i].style.background = "rgb(255, 130, 130)";
+          } else {
+            inputs[i].style.background = "";
+          }
+        }
+
+        inputs[i].addEventListener("input", () => {
+          if(<%= error%>% (Math.pow(2, i+1)) >= (Math.pow(2, i)) ){
+            if(inputs[i].value == ivalues[i]){
+              inputs[i].style.background = "rgb(255, 130, 130)";
+            } else {
+              inputs[i].style.background = "";
+            }
+          }
+        });
+      }
+    </script>
+    </body>
+</html>
