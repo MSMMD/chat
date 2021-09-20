@@ -1,8 +1,9 @@
 <div align="center">
   <a href="https://replit.com/@MSMMD"><img src="https://img.shields.io/static/v1?label=Replit&message=MsMmD&color=blue&style=for-the-badge&logo=replit&logoColor=white"></a>
   <a href="https://chat.msmmd.repl.co"><img src="https://img.shields.io/static/v1?label=Chat&message=site&color=yellow&style=for-the-badge"></a>
-  <img src="https://img.shields.io/github/watchers/msmmd/chat?color=orange&label=Views&style=for-the-badge">
-  <img src="https://img.shields.io/github/forks/msmmd/chat?color=white&label=Forks&style=for-the-badge">
+  <img src="https://img.shields.io/github/watchers/MSMMD/chat?color=orange&label=Views&style=for-the-badge">
+  <img src="https://img.shields.io/github/stars/MSMMD/chat?label=Stars&style=for-the-badge&color=fafd10">
+  <img src="https://img.shields.io/github/forks/MSMMD/chat?color=white&label=Forks&style=for-the-badge">
   <a href="https://discord.com/users/714960683967447050"><img src="https://img.shields.io/static/v1?label=Discord&message=MsMmD&color=4402dd&style=for-the-badge&logo=discord&logoColor=white"></a>
   <img src="https://img.shields.io/apm/l/vim-mode?color=grenn&label=License&style=for-the-badge">
 </div>
