@@ -17,9 +17,6 @@
  <a href="#author">Author</a> • 
  <a href="#license">License</a>
 </p>
-<h4 align="center">
-	🚧 <b>project in development</b> 🚧
-</h4>
 <hr>
 <h3 id="about" align="center">About</h3>
 <p align="center">This is a simple project I'm doing in Node.js, my idea of doing this project was to train to learn Socket.io</p>
