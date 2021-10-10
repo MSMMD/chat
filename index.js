@@ -19,13 +19,13 @@ let rooms = {};
 let users = {};
 
 app.get('/', function(req, res){
-  if(!req.cookies.userid) return res.redirect('/login');
-  if(!users[req.cookies.userid]) return res.redirect('/login');
+  if(!req.cookies.sessionId) return res.redirect('/login');
+  if(!users[req.cookies.sessionId]) return res.redirect('/login');
   res.render(__dirname + '/html/index.ejs', {error:0, rooms: rooms});
 });
 
 app.get('/login', function(req, res){
-	if(users[req.cookies.userid]) return res.redirect('/');
+	if(users[req.cookies.sessionId]) return res.redirect('/');
   res.render(__dirname + '/html/login.ejs', {error: 0, pusername: "", psenha: ""});
 });
 
@@ -42,7 +42,7 @@ app.post('/login', async (req, res) => {
 	    db.get(username).then(value => {
 		    if(senha==value){
           let now = Date.now();
-		    	res.cookie('userid', now, {httpOnly:true});
+		    	res.cookie('sessionId', now, {httpOnly:true});
           users[now] = username;
 		    	res.redirect('/');
 		    }
@@ -55,7 +55,7 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/register', function(req, res){
-	if(users[req.cookies.userid]) return res.redirect('/');
+	if(users[req.cookies.sessionId]) return res.redirect('/');
   res.render(__dirname + '/html/register.ejs', {error:0, pusername: "", psenha: "", pcsenha: ""});
 });
 
@@ -79,7 +79,7 @@ app.post('/register', async (req, res) => {
     else{
       db.set(username, senha);
       let now =  Date.now();
-      res.cookie('userid', now, {httpOnly:true});
+      res.cookie('sessionId', now, {httpOnly:true});
       users[now] = username;
       res.redirect("/");
     }
@@ -87,9 +87,9 @@ app.post('/register', async (req, res) => {
 });
 
 app.get('/logout', function(req, res){
-  if(req.cookies.userid){
-    delete users[req.cookies.userid];
-    res.clearCookie('userid');
+  if(req.cookies.sessionId){
+    delete users[req.cookies.sessionId];
+    res.clearCookie('sessionId');
   }
 	res.redirect("/");
 });
@@ -100,18 +100,18 @@ app.post('/', async (req, res) => {
   if (!!rooms[req.body.room]) {
     return res.redirect('/');
   }
-  rooms[req.body.room] = await { owner:users[req.cookies.userid], users: {}, messages: []}
+  rooms[req.body.room] = await { owner:users[req.cookies.sessionId], users: {}, messages: []}
   io.emit("new room", req.body.room);
   res.redirect(`/r/${req.body.room}`);
 })
 
 app.get('/r/:room', function(req, res){
-  if(!req.cookies.userid) return res.redirect('/login');
-  if(!users[req.cookies.userid]) return res.redirect('/login');
+  if(!req.cookies.sessionId) return res.redirect('/login');
+  if(!users[req.cookies.sessionId]) return res.redirect('/login');
   if (!rooms[req.params.room]) {
     return res.redirect('/');
   }
-  res.render(__dirname + '/html/room.ejs', { roomName: req.params.room, username:users[req.cookies.userid]});
+  res.render(__dirname + '/html/room.ejs', { roomName: req.params.room, username:users[req.cookies.sessionId]});
 });
 
 io.on('connection', (socket) => {
