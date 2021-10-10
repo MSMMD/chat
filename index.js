@@ -19,12 +19,13 @@ let rooms = {};
 let users = {};
 
 app.get('/', function(req, res){
-  if(!req.cookies.username) return res.redirect('/login');
-  res.render(__dirname + '/html/index.ejs', {rooms: rooms});
+  if(!req.cookies.userid) return res.redirect('/login');
+  if(!users[req.cookies.userid]) return res.redirect('/login');
+  res.render(__dirname + '/html/index.ejs', {error:0, rooms: rooms});
 });
 
 app.get('/login', function(req, res){
-	if(req.cookies.username) return res.redirect('https://trunfo.msmmd.repl.co');
+	if(users[req.cookies.userid]) return res.redirect('/');
   res.render(__dirname + '/html/login.ejs', {error: 0, pusername: "", psenha: ""});
 });
 
@@ -40,7 +41,9 @@ app.post('/login', async (req, res) => {
     else{
 	    db.get(username).then(value => {
 		    if(senha==value){
-		    	res.cookie('username', username);
+          let now = Date.now();
+		    	res.cookie('userid', now, {httpOnly:true});
+          users[now] = username;
 		    	res.redirect('/');
 		    }
 		    else{
@@ -52,7 +55,7 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/register', function(req, res){
-	if(req.cookies.username) return res.redirect('/');
+	if(users[req.cookies.userid]) return res.redirect('/');
   res.render(__dirname + '/html/register.ejs', {error:0, pusername: "", psenha: "", pcsenha: ""});
 });
 
@@ -75,32 +78,40 @@ app.post('/register', async (req, res) => {
 	  if(keys.includes(username)) res.render(__dirname + '/html/register.ejs', {error: 11, pusername: username || "", psenha: senha || "", pcsenha: csenha || ""});
     else{
       db.set(username, senha);
-      res.cookie('username', username);
+      let now =  Date.now();
+      res.cookie('userid', now, {httpOnly:true});
+      users[now] = username;
       res.redirect("/");
     }
   });
 });
 
 app.get('/logout', function(req, res){
-  if(req.cookies.username) res.clearCookie('username');
+  if(req.cookies.userid){
+    delete users[req.cookies.userid];
+    res.clearCookie('userid');
+  }
 	res.redirect("/");
 });
 
-app.post('/room', (req, res) => {
+app.post('/', async (req, res) => {
+  let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+  if(format.test(req.body.room)) return res.render(__dirname + '/html/index.ejs', {error:1, rooms: rooms});
   if (!!rooms[req.body.room]) {
     return res.redirect('/');
   }
-  rooms[req.body.room] = { owner:req.cookies.username, users: {}, messages: []}
+  rooms[req.body.room] = await { owner:users[req.cookies.userid], users: {}, messages: []}
   io.emit("new room", req.body.room);
   res.redirect(`/r/${req.body.room}`);
 })
 
 app.get('/r/:room', function(req, res){
-  if(!req.cookies.username) return res.redirect('/login');
+  if(!req.cookies.userid) return res.redirect('/login');
+  if(!users[req.cookies.userid]) return res.redirect('/login');
   if (!rooms[req.params.room]) {
     return res.redirect('/');
   }
-  res.render(__dirname + '/html/room.ejs', { roomName: req.params.room, username:req.cookies.username});
+  res.render(__dirname + '/html/room.ejs', { roomName: req.params.room, username:users[req.cookies.userid]});
 });
 
 io.on('connection', (socket) => {
@@ -113,9 +124,11 @@ io.on('connection', (socket) => {
           if(!Object.values(rooms[room].users).includes(susername)){
             rooms[room].messages.push(`${susername} left the chat`);
             io.to(room).emit('chat message', `${susername} left the chat`);
-            if(!rooms[room].users.length){
-              io.emit('room deleted', room);
-              delete rooms[room];
+            if(!!rooms[room]){
+              if(!Object.values(rooms[room].users).length){
+                io.emit('room deleted', room);
+                delete rooms[room];
+              }
             }
           }
         }, 2000);
@@ -124,6 +137,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('new user', (room, user) => {
+    if(!rooms[room]) return io.to(socket.id).emit('reload');
     socket.join(room);
     rooms[room].users[socket.id]=user;
     io.to(socket.id).emit('all messages', rooms[room].messages);

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="title" content="Super Trunfo De Ciências">
     <meta name="author" content="MsMmD">
-    <title>Registrar</title>
+    <link rel="icon" href="/src/icon.png">
+    <title>Chat - Register</title>
     <link rel="stylesheet" type="text/css" href="/css/register.css">
   </head>
   <body>
     <div>
 		  <form method="POST" action="/register">
-		  	<input name="username" autocomplete="off" placeholder="Nome do Usuário" value="<%= pusername%>"><br>
-		  	<input name="password" type="password" autocomplete="off" placeholder="Senha" value="<%= psenha%>"><br>
-        <input name="cpassword" type="password" autocomplete="off" placeholder="Confirmar Senha" value="<%= pcsenha%>"><br>
+		  	<input name="username" autocomplete="off" placeholder="Username" value="<%= pusername%>"><br>
+		  	<input name="password" type="password" autocomplete="off" placeholder="Password" value="<%= psenha%>"><br>
+        <input name="cpassword" type="password" autocomplete="off" placeholder="Confirm Password" value="<%= pcsenha%>"><br>
 
         <% if(error){
             if([8,9,10,11].includes(error)){

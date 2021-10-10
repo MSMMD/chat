@@ -1,5 +1,5 @@
 let inputs = document.getElementsByTagName('input');
-let ivalues = ["pusername", "psenha", "pcsenha"];
+let ivalues = [pusername, psenha, pcsenha];
 if(! ([8,9,10,11].includes(error)) ){
   for(let i=0; i<inputs.length; i++){
   

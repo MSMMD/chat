@@ -1,0 +1,78 @@
+body{
+  background: #fafafa;
+}
+
+form {
+  text-align: center;
+  margin: auto;
+  width: 300px;
+  background: #b3b3b3;
+  box-shadow: 0px 3px 6px black;
+  border-radius: 10px;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 8px;
+  margin-top: 15px;
+  border-radius: 10px;
+  border: 2px #000000 solid;
+}
+
+input:focus {
+  outline: none;
+  background: lightblue;
+}
+
+button {
+  transition: 100ms;
+  padding: 8px;
+  margin-top: 0px;
+  margin-bottom: 12px;
+  color: white;
+  border: 2px #1d1d1d solid; 
+  background: #4d4d4d;
+  box-shadow: 0 3px #1d1d1d;
+  border-radius: 10px;
+}
+
+button:hover {
+  transition: 100ms;
+  padding: 8px;
+  margin-top: 3px;
+  margin-bottom: 9px;
+  border: 2px #0e0e0e solid; 
+  background: #3e3e3e;
+  box-shadow: 0 0 0 #1d1d1d;
+  border-radius: 10px;
+}
+
+#room-container {
+  text-align: center;
+  margin: auto;
+  margin-top: 20px;
+  width: 300px;
+  background: #b3b3b3;
+  box-shadow: 0px 3px 6px black;
+  border-radius: 10px;
+}
+
+h2 {
+  margin:0;
+  padding-top: 6px;
+}
+
+#room-container > div {
+  padding-bottom: 25px;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+#room-container > div:first-of-type {
+  padding-top: 15px;
+}
+#room-container > div:last-of-type {
+  padding-bottom: 15px;
+}

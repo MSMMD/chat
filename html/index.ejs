@@ -5,20 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="MsMmD">
   <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <link rel="icon" href="/src/icon.png">
   <title>Chat</title>
 </head>
 <body>
+  
+  <form action="/" method="POST">
+    <input name="room" type="text" autocomplete="off" required><br>
+   <% if(error){%>
+        <p style="color:red; font-size:17px;">*no special characters allowed in the room name</p>
+   <% }%>
+    <button type="submit">Create Room</button>
+  </form>
 
   <div id="room-container">
-    <% Object.keys(rooms).forEach(room => { %>
+ <% if(Object.keys(rooms).length){%>
+      <h2>Rooms:</h2>
+ <% }%>
+ <% Object.keys(rooms).forEach(room => { %>
       <div><a href="/r/<%= room %>"><%= room %></a></div>
-    <% }); %>
+ <% }); %>
   </div>
-
-  <form action="/room" method="POST">
-    <input name="room" type="text" autocomplete="off" required>
-    <button type="submit">New Room</button>
-  </form>
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/index.js"></script>

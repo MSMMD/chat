@@ -53,6 +53,6 @@ button:hover {
   margin-bottom: 9px;
   border: 2px #0e0e0e solid; 
   background: #3e3e3e;
-  box-shadow: 0 0 0 transparent;
+  box-shadow: 0 0 0 #1d1d1d;
   border-radius: 10px;
 }
