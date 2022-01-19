@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cookieParser = require('cookie-parser');
 const Database = require("@replit/database");
+const { v4: uuidv4 } = require('uuid');
 
 const db = new Database();
 
@@ -41,9 +42,12 @@ app.post('/login', async (req, res) => {
     else{
 	    db.get(username).then(value => {
 		    if(senha==value){
-          let now = Date.now();
-		    	res.cookie('sessionId', now, {httpOnly:true});
-          users[now] = username;
+          Object.keys(users).forEach(key => {
+            if(users[key]==username) delete users[key];
+          });
+          let id = uuidv4();;
+		    	res.cookie('sessionId', id, {httpOnly:true});
+          users[id] = username;
 		    	res.redirect('/');
 		    }
 		    else{
@@ -78,9 +82,12 @@ app.post('/register', async (req, res) => {
 	  if(keys.includes(username)) res.render(__dirname + '/html/register.ejs', {error: 11, pusername: username || "", psenha: senha || "", pcsenha: csenha || ""});
     else{
       db.set(username, senha);
-      let now =  Date.now();
-      res.cookie('sessionId', now, {httpOnly:true});
-      users[now] = username;
+      Object.keys(users).forEach(key => {
+        if(users[key]==username) delete users[key];
+      });
+      let id =  uuidv4();
+      res.cookie('sessionId', id, {httpOnly:true});
+      users[id] = username;
       res.redirect("/");
     }
   });
