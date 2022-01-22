@@ -3,6 +3,7 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const Database = require("@replit/database");
 const { v4: uuidv4 } = require('uuid');
+const bcrypt = require("bcryptjs");
 
 const db = new Database();
 
@@ -40,8 +41,9 @@ app.post('/login', async (req, res) => {
   db.list().then(keys=>{
 	  if(!keys.includes(username)) res.render(__dirname + '/html/login.ejs', {error: 4, pusername: username || "", psenha: senha || ""});
     else{
-	    db.get(username).then(value => {
-		    if(senha==value){
+	    db.get(username).then(async value => {
+        const isPasswordMatched = await bcrypt.compare(senha, value);
+		    if(isPasswordMatched){
           Object.keys(users).forEach(key => {
             if(users[key]==username) delete users[key];
           });
@@ -78,10 +80,11 @@ app.post('/register', async (req, res) => {
   let format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
   if(format.test(username)) return res.render(__dirname + '/html/register.ejs', {error: 10, pusername: username || "", psenha: senha || "", pcsenha: csenha || ""});
 
-	db.list().then(keys=>{
+	db.list().then(async keys=>{
 	  if(keys.includes(username)) res.render(__dirname + '/html/register.ejs', {error: 11, pusername: username || "", psenha: senha || "", pcsenha: csenha || ""});
     else{
-      db.set(username, senha);
+      const hashedPassword = await bcrypt.hash(password, 8);
+      db.set(username, hashedPassword);
       Object.keys(users).forEach(key => {
         if(users[key]==username) delete users[key];
       });
