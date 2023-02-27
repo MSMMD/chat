@@ -27,7 +27,7 @@
 <div align="center"><a href="https://discord.com/users/714960683967447050"><img src="https://img.shields.io/static/v1?label=Discord&message=MsMmD&color=4402dd&style=flat-square&logo=discord&logoColor=white"></a></div>
 <hr>
 <h3 id="license" align="center">License</h3>
-<div align="center"><img src="https://img.shields.io/apm/l/vim-mode?color=grenn&label=License&style=flat-square"></div>
+<div align="center"><img src="https://img.shields.io/github/license/MSMMD/chat?style=flat-square"></div>
 <h4 align="center">MIT License</h4>
 <br>
 <p align="justify">Copyright (c) 2021 MsMmD<br><br>Permission is hereby granted, free of charge, to any person obtaining a copy
