@@ -6,7 +6,7 @@
   <img src="https://img.shields.io/github/license/MSMMD/chat?style=for-the-badge">
 </div>
 <br>
-<div align="center"><a href="https://chat.msmmd.repl.co"><img src="https://chat.msmmd.repl.co/src/icon.png"></a></div>
+<div align="center"><img src="./html/public/src/icon.png"></div>
 <h1 align="center">Chat</h1>
 <p align="center">A chat website made with node.js server and socket.io</p>
 <br>
