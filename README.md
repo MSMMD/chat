@@ -1,9 +1,9 @@
 <div align="center">
-  <img src="https://img.shields.io/github/watchers/MSMMD/chat?color=orange&label=Views&style=for-the-badge">
-  <img src="https://img.shields.io/github/stars/MSMMD/chat?label=Stars&style=for-the-badge&color=fafd10">
-  <img src="https://img.shields.io/github/forks/MSMMD/chat?color=white&label=Forks&style=for-the-badge">
+  <img src="https://img.shields.io/github/watchers/MSMMD/chat?color=orange&label=Views&style=for-the-badge&version=2">
+  <img src="https://img.shields.io/github/stars/MSMMD/chat?label=Stars&style=for-the-badge&color=fafd10&version=3">
+  <img src="https://img.shields.io/github/forks/MSMMD/chat?color=white&label=Forks&style=for-the-badge&version=1">
   <a href="https://discord.com/users/714960683967447050"><img src="https://img.shields.io/static/v1?label=Discord&message=MsMmD&color=4402dd&style=for-the-badge&logo=discord&logoColor=white"></a>
-  <img src="https://img.shields.io/github/license/MSMMD/chat?style=for-the-badge">
+  <img src="https://img.shields.io/github/license/MSMMD/chat?style=for-the-badge&version=1">
 </div>
 <br>
 <div align="center"><img src="./html/public/src/icon.png"></div>
